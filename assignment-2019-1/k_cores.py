@@ -1,9 +1,8 @@
 import sys
 import pprint
 
-def adjacencyList():
-    input_file = sys.argv[1]
-    d = {}
+def adjacencyList(input_file):
+    g = {}
     with open(input_file) as graph_input:
         for line in graph_input:
             # Split line and convert line parts to integers.
@@ -12,17 +11,16 @@ def adjacencyList():
                 continue
             # If a node is not already in the graph
             # we must create a new empty list.
-            if nodes[0] not in d:
-                d[nodes[0]] = []
-            if nodes[1] not in d:
-                d[nodes[1]] = []
+            if nodes[0] not in g:
+                g[nodes[0]] = []
+            if nodes[1] not in g:
+                g[nodes[1]] = []
             # We need to append the "to" node
             # to the existing list for the "from" node.
-            d[nodes[0]].append(nodes[1])
+            g[nodes[0]].append(nodes[1])
             # And also the other way round.
-            d[nodes[1]].append(nodes[0])
-    pprint.pprint(d)
-    return d
+            g[nodes[1]].append(nodes[0])
+    return g
 
 def add_last(pq, c):
     pq.append(c)
@@ -81,7 +79,7 @@ def extract_min_from_pq(pq):
 
 def update(pq,opn,npn):
     if opn not in pq:
-        return pq
+        return 
     else:
         mh_position = mh.index(opn)
         pq[mh_position] = npn
@@ -92,19 +90,16 @@ def update(pq,opn,npn):
             i = p
         return pq
 
-adjacency_List = adjacencyList()
+input_file = sys.argv[1]
+adjacency_List = adjacencyList(input_file)
 
-d = [0]* len(adjacency_List)
-p = [0]* len(adjacency_List)
-core = [0]* len(adjacency_List)
-pn=[0]* len(adjacency_List)
+d = [len(adjacency_List[v]) for v in range(0, len(adjacency_List)) ]   
+p = [d[v] for v in range(0, len(adjacency_List)) ] 
+core = [0 for i in range(0, len(adjacency_List))] 
+pn= [[p[v],v] for v in range(0, len(adjacency_List)) ] 
 mh = []
 
 for v in range(0, len(adjacency_List)) :
-    d[v] = len(adjacency_List[v])
-    p[v] = d[v]
-    core[v] = 0
-    pn[v] = [p[v],v]
     insert_in_pq(mh,pn[v])
 
 while len(mh) > 0 : 

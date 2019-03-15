@@ -72,10 +72,10 @@ def extract_min_from_pq(pq):
 input_file = sys.argv[1]
 adjacency_List = adjacencyList(input_file)
 
-d = [len(adjacency_List[v]) for v in range(0, len(adjacency_List))]   
-p = [d[v] for v in range(0, len(adjacency_List))] 
-core = [0 for i in range(0, len(adjacency_List))] 
-pn= [[p[v],v] for v in range(0, len(adjacency_List))] 
+d = [len(adjacency_List[v]) for v in range(len(adjacency_List))]   
+p = [d[v] for v in range(len(adjacency_List))] 
+core = [0 for i in range(len(adjacency_List))] 
+pn= [[p[v],v] for v in range(len(adjacency_List))] 
 mh = []
 
 for v in range(0, len(adjacency_List)) :
@@ -92,7 +92,7 @@ while len(mh) > 0 :
             npn = [p[v],v]
             for v, i in enumerate(mh):
                 if i == opn:
-                    mh[v]=npn
+                    mh[v] = npn
                     break        
 
 for i in range(0,len(core)):

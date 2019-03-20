@@ -96,10 +96,10 @@ def find_node(pq,node,opn):
         return node
     # if the value of opn is bigger than the value of the left child
     elif (opn[0] >=  get_data(pq,children(pq,node)[0])[0]):
-        return find_node(pq, children(pq,node)[0], opn)
+        return find_node(pq,children(pq,node)[0],opn)
     # if the value of opn is bigger than the value of the right child
     elif(opn[0] >= get_data(pq,children(pq,node)[1])[0]):
-        return find_node(pq,children(pq,node)[1], opn)
+        return find_node(pq,children(pq,node)[1],opn)
     else:
         return None
          
@@ -128,14 +128,3 @@ while len(mh) > 0 :
 
 for i in range(0,len(core)):
     print(i,core[i])
-
-
-
-
-
-
-
-
-
-
-

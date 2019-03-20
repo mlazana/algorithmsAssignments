@@ -81,22 +81,35 @@ def update(pq,opn,npn):
     if opn not in pq:
         return 
     else:
-        mh_position = mh.index(opn)
+        visited = [False for i in range(len(adjacency_List))] 
+        mh_position = find_node(pq,root(pq),opn)
+        print('opn position: ',mh_position)
         pq[mh_position] = npn
         i = mh_position
         while i != root(pq) and get_data(pq, i) < get_data(pq, parent(i)):
             p = parent(i)
             exchange(pq, i, p)
             i = p
-        return pq
 
+def find_node(pq,node,opn):
+    if(opn == get_data(pq,node)):
+        return node
+    # if the value of opn is bigger than the value of the left child
+    elif (opn[0] >=  get_data(pq,children(pq,node)[0])[0]):
+        return find_node(pq, children(pq,node)[0], opn)
+    # if the value of opn is bigger than the value of the right child
+    elif(opn[0] >= get_data(pq,children(pq,node)[1])[0]):
+        return find_node(pq,children(pq,node)[1], opn)
+    else:
+        return None
+         
 input_file = sys.argv[1]
 adjacency_List = adjacencyList(input_file)
 
-d = [len(adjacency_List[v]) for v in range(0, len(adjacency_List)) ]   
-p = [d[v] for v in range(0, len(adjacency_List)) ] 
-core = [0 for i in range(0, len(adjacency_List))] 
-pn= [[p[v],v] for v in range(0, len(adjacency_List)) ] 
+d = [len(adjacency_List[v]) for v in range(len(adjacency_List)) ]   
+p = [d[v] for v in range(len(adjacency_List)) ] 
+core = [0 for i in range(len(adjacency_List))] 
+pn= [[p[v],v] for v in range(len(adjacency_List)) ] 
 mh = []
 
 for v in range(0, len(adjacency_List)) :
